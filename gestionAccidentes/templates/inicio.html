@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+<html>
+    {% block content %}
+    <head>Bienvenido al servicio de registro de Accidentes</head>
+    <body>
+        
+        <a href="{% url 'registrarAccidente' %}"><button>Registrar nuevo accidente</button></a>
+        <a href="{% url 'listaDeAccidentes' %}"><button>Ver lista de accidentes</button></a>
+    {% endblock %}
+    </body>
+</html>

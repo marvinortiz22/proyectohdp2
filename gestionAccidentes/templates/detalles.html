@@ -1,0 +1,37 @@
+
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/css/registrarAccidente.css">      
+    </head>
+    <body>
+        <div id="mapa" class="capas">
+           
+        </div>
+        <div id="datos" class="capas">
+            
+
+                <fieldset disabled style="border: none">
+                <form>
+                    {% csrf_token %}
+                    <table>
+                        {{form.as_table}}
+                        <tr><th>{{form2.cantVictimas.label}}:</th><td>{{form2.cantVictimas}}</td></tr>
+                        {% if detalles.foto %}
+                        <tr><th>{{form2.foto.label}}:</th><td><img src="{{detalles.foto.url}} " height="200px" width="200px"></td></tr>
+                        {% endif %}
+                        
+                    </table>
+                    
+                </form>
+            </fieldset>
+            <a href="{% url 'listaDeAccidentes' %}"><button>Regresar</button></a>
+            
+        </div>  
+            
+            <div id="data"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/static/js/mapaDetalles.js "></script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBsWMz4YiUjnc-WKTIWdMx7rmexq2I76E8"></script>
+        <script src="/static/js/select.js" > </script>
+    </body>
+</html>

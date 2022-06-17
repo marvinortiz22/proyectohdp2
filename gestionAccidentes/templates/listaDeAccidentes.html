@@ -1,0 +1,45 @@
+{% extends "base.html"%}
+<html>
+</head>
+  <body>
+    <head>Lista de accidente</head>
+    <body>
+      {% block content %}
+      <a href="{% url 'inicio' %} "><button>Regresar</button></a>
+      <form method="POST">
+        {% csrf_token %}
+        {{filtro}} 
+        <input type="submit" value="filtrar">
+        <p>Si detecta algun accidente fraudulento, por favor reportelo (solo se le contara un reporte por accidente)</p>
+      </form>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Municipio</th>
+                <th scope="col">Lugar</th>               
+                <th scope="col">fecha</th>
+                <th scope="col">opciones</th>
+              </tr>
+            </thead>          
+            <tbody>
+                {% for accidente in accidentes %}
+              <tr>
+                <th scope="row">{{accidente.id}}</th>
+                <td>{{accidente.departamento}}</td>
+                <td>{{accidente.municipio}}</td>
+                <td>{{accidente.lugar}}</td>
+                <td>{{accidente.fecha}} </td>
+                <td>
+                  <a href="{% url 'detalles' accidente.id %}"><button>ver detalles</button></a>
+                  <a href="{% url 'reportar' accidente.id %}"><button >reportar</button></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>            
+          </table>
+      {% endblock %}    
+  </body>
+  <script src="/static/js/municipios.js"></script>
+</html>
