@@ -1,15 +1,15 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from gestionAccidentes.models import DatosExtra, ReporteAccidente, Reporte
-from .forms import AccidenteForm, DatosExtraForm, FiltroForm
+from .forms import AccidenteForm, DatosExtraForm, FiltroForm, loginForm, RegistroForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 def IniciarSesion(request):
-    form=AuthenticationForm()
+    form=loginForm()
     return render(request, "IniciarSesion.html",{"form":form})
 
 def Registrarse(request):
-    form=UserCreationForm()
+    form=RegistroForm()
     return render(request, "Registrarse.html",{"form":form})
 
 def bienvenida(request):
@@ -17,18 +17,17 @@ def bienvenida(request):
     return render(request,"inicio.html")
 
 def listaDeAccidentes(request):
-    
-    if request.method=="POST":
-        filtro=FiltroForm(request.POST)
-        if filtro.filtrar_por.value()=="Departamento":
-            accidentes=ReporteAccidente.objects.filter(departamento=filtro.filtro.value())
-            reportes=Reporte.objects.all()
-            filtro=FiltroForm() 
+    form=FiltroForm(request.POST or None)
+    if request.method=="POST" and form.is_valid():
+        if form.cleaned_data['filtrar_por']=="Departamento":
+            accidentes=ReporteAccidente.objects.filter(departamento=form.cleaned_data['filtro']).order_by('-fecha')          
+            form=FiltroForm()
+        else:
+            accidentes=ReporteAccidente.objects.filter(municipio=form.cleaned_data['filtro']).order_by('-fecha')          
+            form=FiltroForm()
     else:
-        accidentes=ReporteAccidente.objects.all()
-        reportes=Reporte.objects.all()    
-        filtro=FiltroForm()
-    return render(request,"listaDeAccidentes.html",{"accidentes":accidentes, "reportes":reportes, "filtro":filtro})
+        accidentes=ReporteAccidente.objects.all().order_by('-fecha')
+    return render(request,"listaDeAccidentes.html",{"accidentes":accidentes,  "filtro":form})
 
 def registrarAccidente(request):
     if request.method=="POST":

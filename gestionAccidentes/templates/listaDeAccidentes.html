@@ -7,6 +7,7 @@
     <head>Lista de accidente</head>
 
     <body>
+
         {% block content %}
         <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
@@ -40,6 +41,17 @@
             <input type="submit" value="filtrar">
             <p>Si detecta algun accidente fraudulento, por favor reportelo (solo se le contara un reporte por accidente)</p>
         </form>
+
+      {% block content %}
+      <a href="{% url 'inicio' %} "><button>Regresar</button></a>
+      <form method="POST">
+        {% csrf_token %}
+        {{filtro}} 
+        <input type="submit" value="filtrar">
+        <p>Si detecta algun accidente fraudulento, por favor reportelo (solo se le contara un reporte por accidente)</p>
+      </form>
+      <a href="{% url 'listaDeAccidentes' %} "><button>Mostrar todos</button></a>
+
         <table class="table table-dark">
             <thead>
                 <tr>
