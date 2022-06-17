@@ -1,14 +1,13 @@
 <html>
     <body>
-      
-            <form action="">
-                <table>
-                    {{form.as_table}}
-               
+            <form method="POST">
+                <table>           
+                    <tr><td><th>{{form.username.label}}:</th></td><td>{{form.username}}</td></tr>
+                    <tr><td><th>{{form.password1.label}}:</th></td><td>{{form.password1}}</td></tr>
+                    <tr><td><th>{{form.password2.label}}:</th></td><td>{{form.password2}}</td></tr>                
                 </table>
                 <input type="submit" value="Registrarse">
                 <p>¿Ya estas registrado? <a href="{% url 'IniciarSesion' %}">Inicia sesión</a></p>
-            </form>
-            
+            </form>           
     </body>
 </html>
