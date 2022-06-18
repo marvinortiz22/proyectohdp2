@@ -8,7 +8,7 @@
 
     <body>
 
-        {% block content %}
+        
         <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'inicio' %}">
@@ -55,7 +55,7 @@
         <table class="table table-dark">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    
                     <th scope="col">Departamento</th>
                     <th scope="col">Municipio</th>
                     <th scope="col">Lugar</th>
@@ -63,10 +63,10 @@
                     <th scope="col">opciones</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for accidente in accidentes %}
+            <tbody>                
+                {% for accidente in accidentes %}           
                 <tr>
-                    <th scope="row">{{accidente.id}}</th>
+                    
                     <td>{{accidente.departamento}}</td>
                     <td>{{accidente.municipio}}</td>
                     <td>{{accidente.lugar}}</td>
@@ -82,5 +82,5 @@
         {% endblock %}
     </body>
     <script src="/static/js/municipios.js"></script>
-
+    <script>var i=1</script>
 </html>
