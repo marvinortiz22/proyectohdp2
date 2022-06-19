@@ -21,13 +21,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.bienvenida, name="inicio"),
+    path('',views.inicio, name="inicio"),
     path('listaDeAccidentes/',views.listaDeAccidentes, name="listaDeAccidentes"),
     path('registrarAccidente/',views.registrarAccidente, name="registrarAccidente"),
     path('Detalles/<id>',views.Detalles,name="detalles"),
     path('reportar/<id>',views.reportar, name="reportar"),
-    path('IniciarSesion/',views.IniciarSesion, name="IniciarSesion"),
+    path('accounts/login/',views.IniciarSesion, name="IniciarSesion"),
     path('Registrarse/',views.Registrarse, name="Registrarse"),
-    path('cerrarSesion/',views.cerrarSesion),
+    path('cerrarSesion/',views.cerrarSesion, name="cerrarSesion"),
 ]
 urlpatterns +=static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)
