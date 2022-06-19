@@ -22,3 +22,4 @@ class DatosExtra(models.Model):
 class Reporte(models.Model):
     accidente=models.ForeignKey(ReporteAccidente, on_delete=models.CASCADE)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
+

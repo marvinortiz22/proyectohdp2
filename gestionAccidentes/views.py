@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from gestionAccidentes.models import DatosExtra, ReporteAccidente, Reporte
 from .forms import AccidenteForm, DatosExtraForm, FiltroForm, loginForm, RegistroForm
+from .forms import *
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 

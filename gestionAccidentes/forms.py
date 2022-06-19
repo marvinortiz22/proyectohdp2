@@ -19,6 +19,7 @@ class DatosExtraForm(forms.ModelForm):
 class FiltroForm(forms.Form):
     filtrar_por=forms.ChoiceField(choices=Filtros)
     filtro=forms.CharField()
+    
 
 class loginForm(AuthenticationForm):
     username=forms.IntegerField()
