@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gestionAccidentes',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -110,9 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'es-es'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/El_Salvador'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -133,11 +133,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
 MEDIA_URL='/media/'
-
-MESSAGES_TAGS={
-    constants.DEBUG: 'debug',
-    constants.DEBUG: 'info',
-    constants.DEBUG: 'success',
-    constants.DEBUG: 'warning',
-    constants.DEBUG: 'danger',
-}
