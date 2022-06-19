@@ -1,21 +1,51 @@
+from email import message
 from django.shortcuts import get_object_or_404, render, redirect
 from gestionAccidentes.models import DatosExtra, ReporteAccidente, Reporte
 from .forms import AccidenteForm, DatosExtraForm, FiltroForm, loginForm, RegistroForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 def IniciarSesion(request):
-    form=loginForm()
+    if request.method=="POST":
+        form=loginForm(request, data=request.POST)
+        if form.is_valid():
+            usuario=authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password'])
+            if usuario:
+                login(request, usuario) 
+                return redirect('inicio')  
+            else:
+                for mensaje in form.error_messages:
+                    messages.error(request, form.error_messages[mensaje])
+        else:
+            for mensaje in form.error_messages:
+                messages.error(request, form.error_messages[mensaje])
+    else:
+        form=loginForm()
     return render(request, "IniciarSesion.html",{"form":form})
 
 def Registrarse(request):
-    form=RegistroForm()
+    if request.method=="POST":
+        form=RegistroForm(request.POST)
+        if form.is_valid():
+            usuario=form.save()
+            login(request, usuario)
+            return redirect('inicio')
+        else:
+            for mensaje in form.error_messages:
+                messages.error(request, form.error_messages[mensaje])
+    else:        
+        form=RegistroForm()
     return render(request, "Registrarse.html",{"form":form})
 
-def bienvenida(request):
+@login_required
+def inicio(request):
 
     return render(request,"inicio.html")
 
+@login_required
 def listaDeAccidentes(request):
     form=FiltroForm(request.POST or None)
     if request.method=="POST" and form.is_valid():
@@ -29,6 +59,7 @@ def listaDeAccidentes(request):
         accidentes=ReporteAccidente.objects.all().order_by('-fecha')
     return render(request,"listaDeAccidentes.html",{"accidentes":accidentes,  "filtro":form})
 
+@login_required
 def registrarAccidente(request):
     if request.method=="POST":
         accidente=ReporteAccidente()
@@ -48,6 +79,7 @@ def registrarAccidente(request):
         form2=DatosExtraForm()
     return render(request,"registrarAccidente.html", {'form':form,'form2':form2})
 
+@login_required
 def Detalles(request, id):
     accidente=get_object_or_404(ReporteAccidente, id=id)
     
@@ -59,6 +91,7 @@ def Detalles(request, id):
         form2=DatosExtraForm()
     return render(request, "detalles.html",{"form":form, "form2":form2, "detalles":detalles})
 
+@login_required
 def reportar(request, id):
     accidente=get_object_or_404(ReporteAccidente, id=id)
     reporteExiste=Reporte.objects.filter(accidente=accidente, user=request.user)
@@ -71,5 +104,7 @@ def reportar(request, id):
         reporte.save()
         return  redirect('listaDeAccidentes')
 
+@login_required
 def cerrarSesion(request):
-    return 
+    logout(request)
+    return redirect('inicio')

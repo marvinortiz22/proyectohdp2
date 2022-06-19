@@ -1,6 +1,7 @@
 const input=document.getElementById('place_input');
-
 let autocomplete
+document.getElementById("id_latitud").readOnly = true;
+document.getElementById("id_longitud").readOnly = true;
 $(function(){
     
     if(navigator.geolocation)
@@ -59,7 +60,16 @@ $(function(){
         autocomplete.addListener('place_changed',function(){
             
             const place=autocomplete.getPlace();
-            map.setCenter(place.geometry.location);       
+            map.setCenter(place.geometry.location); 
+            
+            var marker = new google.maps.Marker({
+                position: place.geometry.location,
+                map: map,
+                draggable: true,
+            })  
+            google.maps.event.addListener(marker, 'position_changed',function(){
+                getMarkerCoords(marker);
+            })    
         });
     }
 })

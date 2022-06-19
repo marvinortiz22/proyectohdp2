@@ -51,15 +51,14 @@
         <p>Si detecta algun accidente fraudulento, por favor reportelo (solo se le contara un reporte por accidente)</p>
       </form>
       <a href="{% url 'listaDeAccidentes' %} "><button>Mostrar todos</button></a>
-
         <table class="table table-dark">
             <thead>
                 <tr>
                     
-                    <th scope="col">Departamento</th>
-                    <th scope="col">Municipio</th>
-                    <th scope="col">Lugar</th>
-                    <th scope="col">fecha</th>
+                    <th scope="col" style="text-align: center;">Departamento</th>
+                    <th scope="col" style="text-align: center;">Municipio</th>
+                    <th scope="col" style="text-align: center;">Lugar</th>
+                    <th scope="col">fecha de registro</th>
                     <th scope="col">opciones</th>
                 </tr>
             </thead>
@@ -70,7 +69,7 @@
                     <td>{{accidente.departamento}}</td>
                     <td>{{accidente.municipio}}</td>
                     <td>{{accidente.lugar}}</td>
-                    <td>{{accidente.fecha}} </td>
+                    <td>{{accidente.fecha}}</td>
                     <td>
                         <a href="{% url 'detalles' accidente.id %}"><button>ver detalles</button></a>
                         <a href="{% url 'reportar' accidente.id %}"><button >reportar</button></a>
