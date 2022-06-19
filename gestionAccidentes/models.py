@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator
+from .choices import Departamentos
 
 class ReporteAccidente(models.Model):
     departamento=models.CharField(max_length=20)
@@ -22,3 +22,4 @@ class DatosExtra(models.Model):
 class Reporte(models.Model):
     accidente=models.ForeignKey(ReporteAccidente, on_delete=models.CASCADE)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
+
