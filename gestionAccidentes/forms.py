@@ -12,6 +12,7 @@ class AccidenteForm(forms.ModelForm):
         exclude=['user']
 
 class DatosExtraForm(forms.ModelForm):
+    cantVictimas=forms.IntegerField(min_value=0, label="Cantidad de victimas")
     class Meta:
         model=DatosExtra
         exclude=['accidente']
@@ -21,13 +22,19 @@ class FiltroForm(forms.Form):
     filtro=forms.CharField()
 
 class loginForm(AuthenticationForm):
-    username=forms.IntegerField()
+    username=forms.CharField(label="DUI")
     password: forms.CharField()
     class Meta:
         fields='__all__'
+   
 
 class RegistroForm(UserCreationForm):
-    username=forms.IntegerField()
+    username=forms.CharField(label="DUI")
     class Meta:
         model=User
         fields=['username','password1','password2']
+
+    def __init__(self, *args, **kwargs):
+        super(RegistroForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text = ''
+

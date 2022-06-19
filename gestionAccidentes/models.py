@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .choices import Departamentos
+from django.core.validators import MinValueValidator
 
 class ReporteAccidente(models.Model):
     departamento=models.CharField(max_length=20)
